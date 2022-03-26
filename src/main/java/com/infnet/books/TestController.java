@@ -1,4 +1,4 @@
-package com.infnet.alexandrequeiroz;
+package com.infnet.books;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

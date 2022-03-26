@@ -1,10 +1,10 @@
-package com.infnet.alexandrequeiroz;
+package com.infnet.books;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AlexandrequeirozApplicationTests {
+class BooksApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,13 +1,13 @@
-package com.infnet.alexandrequeiroz;
+package com.infnet.books;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AlexandrequeirozApplication {
+public class BooksApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AlexandrequeirozApplication.class, args);
+		SpringApplication.run(BooksApplication.class, args);
 	}
 
 }
