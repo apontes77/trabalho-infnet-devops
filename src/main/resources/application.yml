@@ -1,2 +1,15 @@
 server:
   port: 3000
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    password: test
+    username: test
+    url: jdbc:postgresql://localhost:5432/postgres
+  flyway:
+    datasources:
+      default:
+        locations: classpath:db/migration
