@@ -1,8 +1,5 @@
 package com.infnet.books.exceptions;
 
-import java.util.function.Supplier;
-
-public class BookNotFoundException extends RuntimeException {
-    public BookNotFoundException(String s) {
-    }
+public class BookNotFoundException extends NullPointerException {
+    public BookNotFoundException(String s) {}
 }

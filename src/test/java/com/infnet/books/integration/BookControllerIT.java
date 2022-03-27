@@ -1,7 +1,7 @@
 package com.infnet.books.integration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infnet.books.controller.BookController;
-import com.infnet.books.domain.Book;
 import com.infnet.books.services.BookService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,11 +12,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-
+import static com.infnet.books.utils.BookGenerator.book;
+import static com.infnet.books.utils.BookGenerator.someBooks;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.isNotNull;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,11 +34,14 @@ public class BookControllerIT{
   @Autowired
   private MockMvc mockMvc;
 
+  @Autowired
+  private ObjectMapper objectMapper;
+
   @Test
   @DisplayName("when I want an list of books then success.")
   public void shouldReturnAnListOfBooks() throws Exception {
 
-    when(bookService.getAllBooks()).thenReturn(someBooks());
+    given(bookService.getAllBooks()).willReturn(someBooks());
 
     this.mockMvc
             .perform(get("/api/books")
@@ -44,15 +50,33 @@ public class BookControllerIT{
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.size()", is(3)))
             .andExpect(jsonPath("$[0].isbn", is("IASIASDJQ-120301")))
-            .andExpect(jsonPath("$[0].name", is("Utilizando UML e Padrões")));
-  }
-
-  private List<Book> someBooks() {
-    return List.of(
-            Book.builder().id(1L).title("Utilizando UML e Padrões").isbn("IASIASDJQ-120301").pages(123L).build(),
-            Book.builder().id(2L).title("Implementando Domain-Driven Design").isbn("IASIASDJQ-120301").pages(124L).build(),
-            Book.builder().id(3L).title("Domain-Driven Design").isbn("IASIASDJQ-120301").pages(125L).build());
+            .andExpect(jsonPath("$[0].title", is("Utilizando UML e Padrões")));
   }
 
 
+  @Test
+  @DisplayName("given that i want to insert an book, then success")
+  public void shouldInsertANewBook() throws Exception {
+    given(bookService.createBook(book())).willReturn(book());
+
+    this.mockMvc.perform(
+            post("/api/books")
+                    .content(objectMapper.writeValueAsString(book()))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().is2xxSuccessful());
+  }
+
+  @Test
+  @DisplayName("given that I want to get an book then i got success")
+  public void shouldGetAnBookById() throws Exception {
+
+    given(bookService.getById(2L)).willReturn(book());
+
+    this.mockMvc
+            .perform(get("/api/books/2")
+                    .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
+            .andExpect(status().is(200))
+            .andExpect(jsonPath("$.size()", is(7)));
+  }
 }
