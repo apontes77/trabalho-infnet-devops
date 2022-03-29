@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import static com.infnet.books.utils.BookGenerator.book;
 import static com.infnet.books.utils.BookGenerator.someBooks;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -26,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DisplayName("tests of book controller")
 @WebMvcTest(BookController.class)
-public class BookControllerIT{
+public class BookControllerIT {
 
   @MockBean
   private BookService bookService;

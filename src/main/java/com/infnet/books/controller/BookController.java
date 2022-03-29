@@ -1,6 +1,7 @@
 package com.infnet.books.controller;
 
 import com.infnet.books.domain.Book;
+import com.infnet.books.exceptions.BookNotFoundException;
 import com.infnet.books.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.SplittableRandom;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -24,18 +26,38 @@ public class BookController {
 
     @GetMapping
     public List<Book> allBooks() {
+        SplittableRandom random = new SplittableRandom();
+        int i = random.nextInt(1000);
+        if(i > 900) {
+            throw new RuntimeException("SERVER UNSTABLE");
+        }
         return bookService.getAllBooks();
     }
 
     @PostMapping
     public Book insert(@RequestBody Book book) {
-        bookService.createBook(book);
-        return null;
+        return bookService.createBook(book);
     }
 
     @GetMapping(value = "/{id}")
     public Book getbyId(@PathVariable final Long id) {
+        SplittableRandom random = new SplittableRandom();
+        int i = random.nextInt(1000);
+        if(i > 900) {
+            throw new BookNotFoundException("SERVER UNSTABLE");
+        }
         return bookService.getById(id);
+    }
+
+    @GetMapping("/top10")
+    public List<Book> top10() {
+        SplittableRandom random = new SplittableRandom();
+        int i = random.nextInt(1000);
+        if (i > 900) {
+            throw new RuntimeException("LISTING NOT FOUND");
+        }
+
+        return bookService.top10();
     }
 
     @DeleteMapping(value = "/{id}")

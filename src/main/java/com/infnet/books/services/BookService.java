@@ -4,6 +4,8 @@ import com.infnet.books.domain.Book;
 import com.infnet.books.exceptions.BookNotFoundException;
 import com.infnet.books.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,6 +23,11 @@ public class BookService {
 
     public Book getById(final Long id) {
         return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException("Livro não encontrado!"));
+    }
+
+    public List<Book> top10() {
+        return bookRepository.findAll(PageRequest.of(0,3, Sort.by(Sort.Direction.ASC, "title")))
+                .getContent();
     }
 
     @Transactional
