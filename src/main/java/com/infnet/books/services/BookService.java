@@ -26,7 +26,7 @@ public class BookService {
     }
 
     public List<Book> top10() {
-        return bookRepository.findAll(PageRequest.of(0,3, Sort.by(Sort.Direction.ASC, "title")))
+        return bookRepository.findAll(PageRequest.of(0,10, Sort.by(Sort.Direction.ASC, "title")))
                 .getContent();
     }
 
