@@ -9,7 +9,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,6 +93,21 @@ public class BookServiceTest {
         final Long id = 2l;
         cut.deleteBook(2l);
         verify(bookRepository, times(1)).deleteById(id);
+    }
+
+    @Test
+    @DisplayName("given that i want an listing of 10 books, then success")
+    public void shouldReturnTenBooks() {
+
+        List<Book> books = someBooks();
+        Pageable pageable = PageRequest.of(0, 10, Sort.Direction.ASC, "title");
+        Page<Book> result = new PageImpl<>(books, pageable, 10);
+
+        given(bookRepository.findAll(any(Pageable.class))).willReturn(result);
+
+        List<Book> newResult = cut.top10();
+
+        assertThat(newResult.size()).isEqualTo(result.getSize());
     }
 
 }

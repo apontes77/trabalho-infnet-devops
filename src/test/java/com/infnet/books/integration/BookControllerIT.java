@@ -47,7 +47,6 @@ public class BookControllerIT {
                     .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
             .andExpect(status().is(200))
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andExpect(jsonPath("$.size()", is(3)))
             .andExpect(jsonPath("$[0].isbn", is("IASIASDJQ-120301")))
             .andExpect(jsonPath("$[0].title", is("Utilizando UML e Padrões")));
   }
@@ -77,5 +76,17 @@ public class BookControllerIT {
                     .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
             .andExpect(status().is(200))
             .andExpect(jsonPath("$.size()", is(7)));
+  }
+
+  @Test
+  @DisplayName("given that i want to get an list of 10 books, then success")
+  public void shouldGetAnListOfTenBooks() throws Exception {
+    given(bookService.top10()).willReturn(someBooks());
+
+    this.mockMvc
+            .perform(get("/api/books/top10")
+                    .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON))
+            .andExpect(status().is2xxSuccessful())
+            .andExpect(jsonPath("$.size()", is(10)));
   }
 }

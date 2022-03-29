@@ -23,6 +23,13 @@ public class BookGenerator {
         return List.of(
                 Book.builder().id(1L).title("Utilizando UML e Padrões").isbn("IASIASDJQ-120301").pages(123L).build(),
                 Book.builder().id(2L).title("Implementando Domain-Driven Design").isbn("IASIASDJQ-120301").pages(124L).build(),
-                Book.builder().id(3L).title("Domain-Driven Design").isbn("IASIASDJQ-120301").pages(125L).build());
+                Book.builder().id(3L).title("Domain-Driven Design").isbn("IASIASDJQ-120301").pages(125L).build(),
+                Book.builder().id(4L).title("Utilizando UML e Padrões").isbn("IASIASDJQ-120301").pages(123L).build(),
+                Book.builder().id(5L).title("Implementando Domain-Driven Design").isbn("IASIASDJQ-120301").pages(124L).build(),
+                Book.builder().id(6L).title("Domain-Driven Design").isbn("IASIASDJQ-120301").pages(125L).build(),
+                Book.builder().id(7L).title("Utilizando UML e Padrões").isbn("IASIASDJQ-120301").pages(123L).build(),
+                Book.builder().id(8L).title("Implementando Domain-Driven Design").isbn("IASIASDJQ-120301").pages(124L).build(),
+                Book.builder().id(9L).title("Domain-Driven Design").isbn("IASIASDJQ-120301").pages(125L).build(),
+                Book.builder().id(10L).title("Utilizando UML e Padrões").isbn("IASIASDJQ-120301").pages(123L).build());
     }
 }

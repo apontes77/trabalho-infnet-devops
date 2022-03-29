@@ -26,11 +26,6 @@ public class BookController {
 
     @GetMapping
     public List<Book> allBooks() {
-        SplittableRandom random = new SplittableRandom();
-        int i = random.nextInt(1000);
-        if(i > 900) {
-            throw new RuntimeException("SERVER UNSTABLE");
-        }
         return bookService.getAllBooks();
     }
 
@@ -41,22 +36,11 @@ public class BookController {
 
     @GetMapping(value = "/{id}")
     public Book getbyId(@PathVariable final Long id) {
-        SplittableRandom random = new SplittableRandom();
-        int i = random.nextInt(1000);
-        if(i > 900) {
-            throw new BookNotFoundException("SERVER UNSTABLE");
-        }
         return bookService.getById(id);
     }
 
     @GetMapping("/top10")
     public List<Book> top10() {
-        SplittableRandom random = new SplittableRandom();
-        int i = random.nextInt(1000);
-        if (i > 900) {
-            throw new RuntimeException("LISTING NOT FOUND");
-        }
-
         return bookService.top10();
     }
 
