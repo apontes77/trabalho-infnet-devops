@@ -1,0 +1,17 @@
+company = "alexandrequeirozcloud"
+prefix = "alexandrequeiroz"
+environment = "dev"
+location = "northeurope"
+description = "Deploy a PostgreSQL Server"
+owner = "Alexandre Queiroz"
+
+azure-subscription-id = "7cb73833-a81b-4bd0-8207-217a4f75b5ed"
+azure-client-id = ""
+azure-client-secret = ""
+azure-tenant-id = "aa495f2c-d37e-4b58-ab95-bf0874a3adb2"
+
+postgresql-admin-login = "alexandreadmin"
+postgresql-admin-password = "4b4c4t3@$"
+postgresql-version = "12"
+postgresql-sku-name = "B_Gen5_1"
+postgresql-storage = "5120"
