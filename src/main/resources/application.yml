@@ -1,5 +1,5 @@
 server:
-  port: 3000
+  port: 8081
 
 spring:
   jpa:
@@ -13,3 +13,22 @@ spring:
     datasources:
       default:
         locations: classpath:db/migration
+
+info:
+  app:
+    name: project.name
+    description: project.description
+    version: project.version
+    encoding: project.encoding
+    java:
+      version: java.version
+
+management:
+  endpoint:
+    shutdown:
+      enable: true
+    health:
+      show-details: always
+    web:
+      exposure:
+        include: health,info,prometheus
