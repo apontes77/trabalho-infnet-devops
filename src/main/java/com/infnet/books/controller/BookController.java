@@ -3,6 +3,7 @@ package com.infnet.books.controller;
 import com.infnet.books.domain.Book;
 import com.infnet.books.exceptions.BookNotFoundException;
 import com.infnet.books.services.BookService;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
+    @Timed(value = "listing.books", description = "time taken to list all books")
     public List<Book> allBooks() {
         return bookService.getAllBooks();
     }
