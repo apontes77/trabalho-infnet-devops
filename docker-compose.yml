@@ -16,34 +16,18 @@ services:
     depends_on:
       - database
 
-
   prometheus:
     image: prom/prometheus:latest
+    volumes:
+      - ${PWD}/prometheus-grafana/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
-      - "9000:9090"
-    volumes:
-      - ./prometheus:/etc/prometheus
-      - prometheus-data:/prometheus
-    command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
-
+      - "9090:9090"
   grafana:
-    image: grafana/grafana:6.7.2
-    container_name: grafana
+    image: grafana/grafana:latest-ubuntu
     volumes:
-      - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_USERS_ALLOW_SIGN_UP=false
-    restart: unless-stopped
+      - ${PWD}/prometheus-grafana/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ${PWD}/prometheus-grafana/grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
     ports:
       - "3000:3000"
-    labels:
-      org.label-schema.group: "monitoring"
-    depends_on:
+    links:
       - prometheus
-
-volumes:
-  grafana_data:
-  prometheus-data:
