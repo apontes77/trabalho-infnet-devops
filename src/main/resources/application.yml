@@ -2,6 +2,8 @@ server:
   port: 8081
 
 spring:
+  application:
+    name: api-books
   jpa:
     hibernate:
       ddl-auto: validate
@@ -31,4 +33,11 @@ management:
       show-details: always
     web:
       exposure:
-        include: health,info,prometheus
+        include: health, info, prometheus, metrics
+
+logging:
+  level:
+    root: WARN
+    com:
+      infnet:
+        books: TRACE
