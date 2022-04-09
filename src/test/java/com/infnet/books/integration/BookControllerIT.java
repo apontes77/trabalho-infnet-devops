@@ -1,22 +1,23 @@
 package com.infnet.books.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infnet.books.controller.BookController;
 import com.infnet.books.services.BookService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static com.infnet.books.utils.BookGenerator.book;
 import static com.infnet.books.utils.BookGenerator.someBooks;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -24,7 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @DisplayName("tests of book controller")
-@WebMvcTest(BookController.class)
+@ExtendWith(SpringExtension.class)
+@WebMvcTest
+@ActiveProfiles("test")
 public class BookControllerIT {
 
   @MockBean

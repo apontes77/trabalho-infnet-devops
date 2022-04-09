@@ -1,9 +1,20 @@
 spring:
   datasource:
-    password: test
-    username: test
-    url: jdbc:postgresql://localhost:5432/postgres
+    driver-class-name: org.h2.Driver
+    password: sa
+    username: sa
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+  h2:
+    console:
+      enable: true
 
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    ddl-auto: update
+    show-sql: true
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format-sql: true
     hibernate:
       ddl-auto: validate
