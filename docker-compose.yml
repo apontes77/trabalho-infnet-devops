@@ -1,5 +1,15 @@
 version: '3.8'
 services:
+  booksapi:
+    image: apontes77/booksapi:0.1
+    user: root  # has to run as root user, because it needs to write logs to shared volume
+    environment:
+      - LOGGING_FILE_NAME=/logs/booksapi.log
+    ports:
+      - "8080:8080"
+    volumes:
+      - log_volume:/logs
+
   database:
     image: postgres:12.3
     environment:
@@ -7,6 +17,7 @@ services:
       - POSTGRES_PASSWORD=test
     ports:
       - "5432:5432"
+
   flyway:
     image: flyway/flyway:8
     command: -configFiles=/flyway/conf/flyway.config -locations=filesystem:/flyway/sql -connectRetries=60 migrate
@@ -31,3 +42,32 @@ services:
     container_name: grafana
     ports:
       - "3000:3000"
+
+  splunk:
+    image: splunk/splunk:8.0
+    hostname: splunk
+    environment:
+      - SPLUNK_START_ARGS=--accept-license
+      - SPLUNK_USER=root
+      - SPLUNK_ENABLE_LISTEN=9997
+      - SPLUNK_PASSWORD=password
+    ports:
+      - "8000:8000"
+
+  splunkforwarder:
+    image: splunk/universalforwarder:8.0
+    hostname: splunkforwarder
+    environment:
+      - SPLUNK_START_ARGS=--accept-license --answer-yes
+      - SPLUNK_STANDALONE_URL=splunk:9997
+      - SPLUNK_USER=root
+      - SPLUNK_ADD=monitor /logs
+      - SPLUNK_PASSWORD=password
+    restart: always
+    depends_on:
+      - splunk
+    volumes:
+      - log_volume:/logs
+
+volumes:
+  log_volume:
