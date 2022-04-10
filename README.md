@@ -32,7 +32,7 @@ Foram configurados Prometheus e Grafana para exportação de métricas e criaç�
 acesse `http://localhost:3000`.
 
 Segue um exemplo de métricas colhidas a partir da JVM via Micrometer:
-
+---------------------------------------------------
 ![Imagem 1](images/img1.png)
 ---------------------------------------------------
 ![Imagem 2](images/img2.png)
@@ -41,11 +41,12 @@ Segue um exemplo de métricas colhidas a partir da JVM via Micrometer:
 
 Para acessar o Papertrail, é necessário uma conta privada. Logo, segue um print de tela de execução da mesma.
 **Exemplo de exportação dos logs para a ferramenta PaperTrail**:
+---------------------------------------------------
 
 ![Imagem_4](images/img4.png)
 
 **Exemplo do rastreamento das requisições HTTP na ferramenta Zipkin**. Para acessá-lo, acesse: `http://localhost:9411`.
-
+---------------------------------------------------
 
 ![Imagem_5](images/img5.png)
 ---------------------------------------------------
@@ -57,6 +58,12 @@ Para acessar o Papertrail, é necessário uma conta privada. Logo, segue um prin
 ---------------------------------------------------
 ![Imagem_9](images/img9.png)
 
+Alguns alarmes criados a partir do Grafana (com alguns erros de conexão com o Prometheus):
+---------------------------------------------------
+
+![Imagem_10](images/img10.png)
+---------------------------------------------------
+![Imagem_11](images/img11.png)
 
 Para propostas de melhoria, basta abrir um Pull Request ou enviar um
 email para `alexandrepontesgyn@gmail.com`.
