@@ -15,6 +15,10 @@ spring:
     datasources:
       default:
         locations: classpath:db/migration
+  profiles:
+    active: dev
+  zipkin:
+    base-url: http://localhost:9411
 
 info:
   app:
@@ -26,6 +30,11 @@ info:
       version: java.version
 
 management:
+  metrics:
+    enable:
+      jvm: true
+    tags:
+      application: booksapi
   endpoints:
     shutdown:
       enable: true
