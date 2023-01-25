@@ -67,3 +67,5 @@ Alguns alarmes criados a partir do Grafana (com alguns erros de conexão com o P
 
 Para propostas de melhoria, basta abrir um Pull Request ou enviar um
 email para `alexandrepontesgyn@gmail.com`.
+
+Obrigado!
